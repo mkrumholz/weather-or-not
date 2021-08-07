@@ -34,13 +34,13 @@ RSpec.describe 'forecast' do
       expect(current_weather[:icon]).to be_a String
 
       expect(daily_weather).to be_an Array
-      expect(daily_weather[:date]).to be_a String
-      expect(daily_weather[:sunrise]).to be_a String
-      expect(daily_weather[:sunset]).to be_a String
-      expect(daily_weather[:max_temp]).to be_a Float
-      expect(daily_weather[:min_temp]).to be_a Float
-      expect(daily_weather[:conditions]).to be_a String
-      expect(daily_weather[:icon]).to be_a String
+      expect(daily_weather.first[:date]).to be_a String
+      expect(daily_weather.first[:sunrise]).to be_a String
+      expect(daily_weather.first[:sunset]).to be_a String
+      expect(daily_weather.first[:max_temp]).to be_a Float
+      expect(daily_weather.first[:min_temp]).to be_a Float
+      expect(daily_weather.first[:conditions]).to be_a String
+      expect(daily_weather.first[:icon]).to be_a String
 
       expect(hourly_weather).to be_an Array
       expect(hourly_weather.first[:time]).to be_a String
