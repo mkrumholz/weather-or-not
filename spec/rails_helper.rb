@@ -34,6 +34,8 @@ RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
+  config.include FactoryBot::Syntax::Methods
+
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
@@ -96,4 +98,13 @@ Shoulda::Matchers.configure do |config|
     with.test_framework :rspec
     with.library :rails
   end
+end
+
+VCR.configure do |config|
+  # config.allow_http_connections_when_no_cassette = true
+  config.cassette_library_dir = "spec/fixtures/vcr_cassettes"
+  config.hook_into :webmock
+  config.filter_sensitive_data('<api_key>') { ENV['cocktail_key'] }
+  config.default_cassette_options = { re_record_interval: 4.days }
+  config.configure_rspec_metadata!
 end
