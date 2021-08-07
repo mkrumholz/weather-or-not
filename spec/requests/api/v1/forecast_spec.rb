@@ -43,13 +43,10 @@ RSpec.describe 'forecast' do
       expect(daily_weather[:icon]).to be_a String
 
       expect(hourly_weather).to be_an Array
-      expect(daily_weather[:date]).to be_a String
-      expect(daily_weather[:sunrise]).to be_a String
-      expect(daily_weather[:sunset]).to be_a String
-      expect(daily_weather[:max_temp]).to be_a Float
-      expect(daily_weather[:min_temp]).to be_a Float
-      expect(daily_weather[:conditions]).to be_a String
-      expect(daily_weather[:icon]).to be_a String
+      expect(hourly_weather.first[:time]).to be_a String
+      expect(hourly_weather.first[:temperature]).to be_a Float
+      expect(hourly_weather.first[:conditions]).to be_a String
+      expect(hourly_weather.first[:icon]).to be_a String
     end
 
     it 'returns an error message and 404 error code if the city or state are not provided' do
