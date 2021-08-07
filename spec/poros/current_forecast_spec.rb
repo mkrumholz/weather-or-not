@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe CurrentForecast do
   describe '#details' do
     it 'returns a hash of object details for a current forecast' do
+      timezone_offset = -21600
       current = {:dt=>1628376892,
         :sunrise=>1628337889,
         :sunset=>1628388393,
@@ -19,7 +20,7 @@ RSpec.describe CurrentForecast do
         :wind_gust=>2.24,
         :weather=>[{:id=>802, :main=>"Clouds", :description=>"scattered clouds", :icon=>"03d"}]}
 
-      current_weather = CurrentForecast.new(current)
+      current_weather = CurrentForecast.new(current, timezone_offset)
 
       actual = current_weather.details
       expect(actual).to be_a Hash
@@ -29,9 +30,9 @@ RSpec.describe CurrentForecast do
       expect(actual[:sunset]).to be_a String
       expect(actual[:temperature]).to be_a Float
       expect(actual[:feels_like]).to be_a Float
-      expect(actual[:humidity]).to be_a Float
-      expect(actual[:uvi]).to be_a Float
-      expect(actual[:visibility]).to be_a Float
+      expect(actual[:humidity]).to be_a Numeric
+      expect(actual[:uvi]).to be_a Numeric
+      expect(actual[:visibility]).to be_a Numeric
       expect(actual[:conditions]).to be_a String
       expect(actual[:icon]).to be_a String
       expect(actual).not_to have_key :dew_point
