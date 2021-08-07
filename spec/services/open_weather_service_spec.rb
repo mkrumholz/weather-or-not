@@ -2,17 +2,7 @@ require 'rails_helper'
 
 RSpec.describe OpenWeatherService do
   describe '::get_forecast' do
-    before do
-      VCR.turn_off!
-      WebMock.allow_net_connect!
-    end
-    
-    after do
-      VCR.turn_on!
-      WebMock.disable_net_connect!
-    end
-
-    it 'returns the current, daily, and hourly forecast for the location provided' do
+    it 'returns the current, daily, and hourly forecast for the location provided', :vcr do
       response = OpenWeatherService.get_forecast(39.738453,-104.984853)
 
       expect(response).to be_a Hash
