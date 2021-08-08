@@ -24,9 +24,9 @@ RSpec.describe OpenWeatherFacade do
       expect(current_weather[:sunset]).to be_a String
       expect(current_weather[:temperature]).to be_a Float
       expect(current_weather[:feels_like]).to be_a Float
-      expect(current_weather[:humidity]).to be_a Float
-      expect(current_weather[:uvi]).to be_a Float
-      expect(current_weather[:visibility]).to be_a Float
+      expect(current_weather[:humidity]).to be_a Numeric
+      expect(current_weather[:uvi]).to be_a Numeric
+      expect(current_weather[:visibility]).to be_a Numeric
       expect(current_weather[:conditions]).to be_a String
       expect(current_weather[:icon]).to be_a String
       expect(current_weather).not_to have_key :dew_point
@@ -44,8 +44,8 @@ RSpec.describe OpenWeatherFacade do
       expect(daily_weather.first[:min_temp]).to be_a Float
       expect(daily_weather.first[:conditions]).to be_a String
       expect(daily_weather.first[:icon]).to be_a String
-      expect(daily_weather).not_to have_key :pressure
-      expect(daily_weather).not_to have_key :humidity
+      expect(daily_weather.first).not_to have_key :pressure
+      expect(daily_weather.first).not_to have_key :humidity
 
 
       hourly_weather = forecast[:hourly_weather]
@@ -56,8 +56,8 @@ RSpec.describe OpenWeatherFacade do
       expect(hourly_weather.first[:temperature]).to be_a Float
       expect(hourly_weather.first[:conditions]).to be_a String
       expect(hourly_weather.first[:icon]).to be_a String
-      expect(hourly_weather).not_to have_key :pressure
-      expect(hourly_weather).not_to have_key :feels_like
+      expect(hourly_weather.first).not_to have_key :pressure
+      expect(hourly_weather.first).not_to have_key :feels_like
     end
   end
 end
