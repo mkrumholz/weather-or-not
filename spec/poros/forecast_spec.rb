@@ -34,6 +34,7 @@ RSpec.describe Forecast do
       
       forecast = Forecast.new(forecast_details)
       expect(forecast).to be_a Forecast
+      expect(forecast.id).to eq nil
       expect(forecast.current_weather.length).to eq 10
       expect(forecast.daily_weather.length).to eq 5
       expect(forecast.daily_weather.first.length).to eq 7
