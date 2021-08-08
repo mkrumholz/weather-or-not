@@ -2,16 +2,7 @@ require 'rails_helper'
 
 RSpec.describe OpenWeatherFacade do
   describe '::forecast' do
-    before do
-      VCR.turn_off!
-      WebMock.allow_net_connect!
-    end
-    
-    after do
-      VCR.turn_on!
-      WebMock.disable_net_connect!
-    end
-    it 'returns the complete forecast for the provided location' do  
+    it 'returns the complete forecast for the provided location', :vcr do  
       forecast = OpenWeatherFacade.forecast('denver,co')
 
       expect(forecast).to be_a Hash
