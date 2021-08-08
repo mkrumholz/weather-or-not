@@ -2,6 +2,16 @@ require 'rails_helper'
 
 RSpec.describe 'forecast' do
   describe 'GET /forecast' do
+    before do
+      VCR.turn_off!
+      WebMock.allow_net_connect!
+    end
+    
+    after do
+      VCR.turn_on!
+      WebMock.disable_net_connect!
+    end
+
     it 'returns the weather for a provided city and state' do
       get '/api/v1/forecast', params: {location: 'denver,co'}
 
@@ -27,9 +37,9 @@ RSpec.describe 'forecast' do
       expect(current_weather[:sunset]).to be_a String
       expect(current_weather[:temperature]).to be_a Float
       expect(current_weather[:feels_like]).to be_a Float
-      expect(current_weather[:humidity]).to be_a Float
-      expect(current_weather[:uvi]).to be_a Float
-      expect(current_weather[:visibility]).to be_a Float
+      expect(current_weather[:humidity]).to be_a Numeric
+      expect(current_weather[:uvi]).to be_a Numeric
+      expect(current_weather[:visibility]).to be_a Numeric
       expect(current_weather[:conditions]).to be_a String
       expect(current_weather[:icon]).to be_a String
 
@@ -49,24 +59,24 @@ RSpec.describe 'forecast' do
       expect(hourly_weather.first[:icon]).to be_a String
     end
 
-    it 'returns an error message and 404 error code if the city or state are not provided' do
-      get '/api/v1/forecast', params: {location: 'denver'}
+    it 'returns an error message and 404 error code if the location param is not valid' do
+      get '/api/v1/forecast', params: {location: ''}
 
-      expect(response).to have_http_status 404
+      expect(response).to have_http_status 400
 
       response_body = JSON.parse(response.body, symbolize_names: true)
 
-      expect(response_body).to match(/Location not found/)
+      expect(response_body).to eq({error: 'Bad request'})
     end
 
     it 'returns an error message and 422 error code if no parameters are provided' do
       get '/api/v1/forecast'
 
-      expect(response).to have_http_status 422
+      expect(response).to have_http_status 400
 
       response_body = JSON.parse(response.body, symbolize_names: true)
 
-      expect(response_body).to match(/Bad request/)
+      expect(response_body).to eq({error: 'Bad request'})
     end
   end
 end
