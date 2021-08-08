@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe CurrentForecast do
   describe '#details' do
     it 'returns a hash of object details for a current forecast' do
-      timezone_offset = -21600
+      timezone = 'America/Chicago'
       current = {:dt=>1628376892,
         :sunrise=>1628337889,
         :sunset=>1628388393,
@@ -20,7 +20,7 @@ RSpec.describe CurrentForecast do
         :wind_gust=>2.24,
         :weather=>[{:id=>802, :main=>"Clouds", :description=>"scattered clouds", :icon=>"03d"}]}
 
-      current_weather = CurrentForecast.new(current, timezone_offset)
+      current_weather = CurrentForecast.new(current, timezone)
 
       actual = current_weather.details
       expect(actual).to be_a Hash

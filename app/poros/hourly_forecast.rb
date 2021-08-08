@@ -1,14 +1,14 @@
 class HourlyForecast
-  def initialize(hourly_details, timezone_offset)
+  def initialize(hourly_details, timezone)
     @time = hourly_details[:dt]
-    @timezone_offset = timezone_offset
+    @timezone = timezone
     @temperature = hourly_details[:temp]
     @weather = hourly_details[:weather].first
   end
 
   def details
     {
-      time: Time.at(@time + @timezone_offset).strftime('%H:%M:%S'),
+      time: Time.at(@time).in_time_zone(@timezone).strftime('%H:%M:%S'),
       temperature: @temperature,
       conditions: @weather[:description],
       icon: @weather[:icon]

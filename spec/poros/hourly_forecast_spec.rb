@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe HourlyForecast do
   describe '#details' do
     it 'returns a hash of object details for a hourly forecast' do
-      timezone_offset = -21600
+      timezone = 'America/Chicago'
       hourly = {:dt=>1628377200,
       :temp=>300.45,
       :feels_like=>299.65,
@@ -19,7 +19,7 @@ RSpec.describe HourlyForecast do
       :weather=>[{:id=>802, :main=>"Clouds", :description=>"scattered clouds", :icon=>"03d"}],
       :pop=>0.04}
 
-      hourly_weather = HourlyForecast.new(hourly, timezone_offset)
+      hourly_weather = HourlyForecast.new(hourly, timezone)
 
       actual = hourly_weather.details
       expect(actual).to be_a Hash

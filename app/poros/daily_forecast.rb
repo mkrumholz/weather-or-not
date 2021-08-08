@@ -11,9 +11,9 @@ class DailyForecast
 
   def details
     {
-      date: Time.at(@date + @timezone_offset).strftime('%Y-%m-%d'),
-      sunrise: Time.at(@sunrise + @timezone_offset).to_s,
-      sunset: Time.at(@sunset + @timezone_offset).to_s,
+      date: Time.at(@date).in_time_zone(@timezone).strftime('%Y-%m-%d'),
+      sunrise: Time.at(@sunrise).in_time_zone(@timezone).to_s,
+      sunset: Time.at(@sunset).in_time_zone(@timezone).to_s,
       max_temp: @max_temp,
       min_temp: @min_temp,
       conditions: @weather[:description],

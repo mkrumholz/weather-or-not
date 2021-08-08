@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe DailyForecast do
   describe '#details' do
     it 'returns a hash of object details for a daily forecast' do
-      timezone_offset = -21600
+      timezone = 'America/Chicago'
       daily = {:dt=>1628362800,
         :sunrise=>1628337889,
         :sunset=>1628388393,
@@ -23,7 +23,7 @@ RSpec.describe DailyForecast do
         :pop=>0.16,
         :uvi=>9.04}
 
-      daily_weather = DailyForecast.new(daily, timezone_offset)
+      daily_weather = DailyForecast.new(daily, timezone)
 
       actual = daily_weather.details
       expect(actual).to be_a Hash

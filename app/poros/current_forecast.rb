@@ -1,7 +1,7 @@
 class CurrentForecast
-  def initialize(current_details, timezone_offset)
+  def initialize(current_details, timezone)
     @datetime = current_details[:dt]
-    @timezone_offset = timezone_offset
+    @timezone = timezone
     @sunrise = current_details[:sunrise]
     @sunset = current_details[:sunset]
     @temperature = current_details[:temp]
@@ -14,9 +14,9 @@ class CurrentForecast
 
   def details
     {
-      datetime: Time.at(@datetime + @timezone_offset).to_s,
-      sunrise: Time.at(@sunrise + @timezone_offset).to_s,
-      sunset: Time.at(@sunset + @timezone_offset).to_s,
+      datetime: Time.at(@datetime).in_time_zone(@timezone).to_s,
+      sunrise: Time.at(@sunrise).in_time_zone(@timezone).to_s,
+      sunset: Time.at(@sunset).in_time_zone(@timezone).to_s,
       temperature: @temperature,
       feels_like: @feels_like,
       humidity: @humidity,
