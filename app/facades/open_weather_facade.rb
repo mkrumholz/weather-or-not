@@ -2,11 +2,12 @@ class OpenWeatherFacade
   def self.forecast(location)
     coordinates = GeocodingFacade.coordinates(location)
     forecast = OpenWeatherService.get_forecast(coordinates[:lat], coordinates[:lon])
-    {
+    weather_details = {
       current_weather: current_details(forecast[:current], forecast[:timezone]),
       daily_weather: daily_details(forecast[:daily], forecast[:timezone]),
       hourly_weather: hourly_details(forecast[:hourly], forecast[:timezone])
     }
+    Forecast.new(weather_details)
   end
 
   def self.current_details(current_forecast, timezone)

@@ -5,9 +5,9 @@ RSpec.describe OpenWeatherFacade do
     it 'returns the complete forecast for the provided location', :vcr do  
       forecast = OpenWeatherFacade.forecast('denver,co')
 
-      expect(forecast).to be_a Hash
+      expect(forecast).to be_a Forecast
 
-      current_weather = forecast[:current_weather]
+      current_weather = forecast.current_weather
       expect(current_weather).to be_a Hash
       expect(current_weather.length).to eq 10
       expect(current_weather[:datetime]).to be_a String
@@ -24,7 +24,7 @@ RSpec.describe OpenWeatherFacade do
       expect(current_weather).not_to have_key :clouds
       expect(current_weather).not_to have_key :wind_speed
 
-      daily_weather = forecast[:daily_weather]
+      daily_weather = forecast.daily_weather
       expect(daily_weather).to be_an Array
       expect(daily_weather.length).to eq 5
       expect(daily_weather.first.length).to eq 7
@@ -39,7 +39,7 @@ RSpec.describe OpenWeatherFacade do
       expect(daily_weather.first).not_to have_key :humidity
 
 
-      hourly_weather = forecast[:hourly_weather]
+      hourly_weather = forecast.hourly_weather
       expect(hourly_weather).to be_an Array
       expect(hourly_weather.length).to eq 8
       expect(hourly_weather.first.length).to eq 4
