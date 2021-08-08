@@ -1,6 +1,6 @@
 class Forecast
   attr_reader :id, :current_weather, :daily_weather, :hourly_weather
-  
+
   def initialize(weather_details)
     @id = nil
     @current_weather = weather_details[:current_weather]

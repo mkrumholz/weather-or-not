@@ -1,10 +1,10 @@
 class GeocodingFacade
   def self.coordinates(location)
     response = GeocodingService.get_coordinates(location)
-    latLng = response[:results].first[:locations].first[:latLng]
+    lat_lng = response[:results].first[:locations].first[:latLng]
     {
-      lat: latLng[:lat],
-      lon: latLng[:lng]
+      lat: lat_lng[:lat],
+      lon: lat_lng[:lng]
     }
   end
 end
