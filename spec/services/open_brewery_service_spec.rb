@@ -15,5 +15,19 @@ RSpec.describe OpenBreweryService do
         expect(brewery[:brewery_type]).to be_a String
       end
     end
+
+    it 'returns 50 breweries maximum if quantity exceeds 50', :vcr do
+      response = OpenBreweryService.get_breweries(39.738453,-104.984853,57)
+
+      expect(response).to be_an Array
+      expect(response.length).to eq 50
+
+      response.each do |brewery|
+        expect(brewery).to be_a Hash
+        expect(brewery[:id]).to be_an Integer
+        expect(brewery[:name]).to be_a String
+        expect(brewery[:brewery_type]).to be_a String
+      end
+    end
   end
 end
