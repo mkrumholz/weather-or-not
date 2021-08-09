@@ -2,17 +2,7 @@ require 'rails_helper'
 
 RSpec.describe BreweriesFacade do
   describe '::breweries' do
-    before do
-      VCR.turn_off!
-      WebMock.allow_net_connect!
-    end
-    
-    after do
-      VCR.turn_on!
-      WebMock.disable_net_connect!
-    end
-
-    it 'returns a brewery object with forecast, location, and breweries info' do
+    it 'returns a brewery object with forecast, location, and breweries info', :vcr do
       breweries = BreweriesFacade.breweries('denver,co', 5)
 
       expect(breweries).to be_a Breweries

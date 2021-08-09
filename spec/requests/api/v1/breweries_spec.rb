@@ -2,17 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'breweries' do
   describe 'GET /breweries' do
-    before do
-      VCR.turn_off!
-      WebMock.allow_net_connect!
-    end
-    
-    after do
-      VCR.turn_on!
-      WebMock.disable_net_connect!
-    end
-
-    it 'returns a list of (quantity) breweries along with forecast info' do
+    it 'returns a list of (quantity) breweries along with forecast info', :vcr do
       get '/api/v1/breweries', params: {location: 'denver,co', quantity: 5}
 
       expect(response).to have_http_status 200
