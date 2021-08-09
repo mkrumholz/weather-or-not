@@ -17,21 +17,21 @@ RSpec.describe 'Breweries Request' do
       expect(breweries[:type]).to eq 'breweries'
       expect(breweries[:attributes]).to be_a Hash
 
-      expect(breweries[:attributes][:destination]).to eq 'denver,co'
-      expect(breweries[:attributes][:forecast]).to be_a Hash
-      expect(breweries[:attributes][:forecast]).to have_key :summary
-      expect(breweries[:attributes][:forecast]).to have_key :temperature
+      destination = breweries[:attributes][:destination]
+      expect(destination).to eq 'denver,co'
 
-      expect(breweries[:attributes][:breweries]).to be_an Array
-      expect(breweries[:attributes][:breweries].first).to be_a Hash
-      expect(breweries[:attributes][:breweries].first).to have_key :id
-      expect(breweries[:attributes][:breweries].first[:id]).to be_an Integer
+      forecast = breweries[:attributes][:forecast]
+      expect(forecast).to be_a Hash
+      expect(forecast[:summary]).to be_a String
+      expect(forecast[:temperature]).to be_a String
 
-      expect(breweries[:attributes][:breweries].first).to have_key :name
-      expect(breweries[:attributes][:breweries].first[:name]).to be_a String
+      brewery_list = breweries[:attributes][:breweries]
+      expect(brewery_list).to be_an Array
 
-      expect(breweries[:attributes][:breweries].first).to have_key :brewery_type
-      expect(breweries[:attributes][:breweries].first[:brewery_type]).to be_a String
+      expect(brewery_list.first).to be_a Hash
+      expect(brewery_list.first[:id]).to be_an Integer
+      expect(brewery_list.first[:name]).to be_a String
+      expect(brewery_list.first[:brewery_type]).to be_a String
     end
 
     it 'returns an error message and 400 error code if the location param is not valid', :vcr do
