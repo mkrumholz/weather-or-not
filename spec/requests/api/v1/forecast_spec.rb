@@ -49,7 +49,7 @@ RSpec.describe 'forecast' do
       expect(hourly_weather.first[:icon]).to be_a String
     end
 
-    it 'returns an error message and 404 error code if the location param is not valid', :vcr do
+    it 'returns an error message and 400 error code if the location param is not valid', :vcr do
       get '/api/v1/forecast', params: {location: ''}
 
       expect(response).to have_http_status 400
@@ -59,7 +59,7 @@ RSpec.describe 'forecast' do
       expect(response_body).to eq({error: 'Bad request'})
     end
 
-    it 'returns an error message and 422 error code if no parameters are provided', :vcr do
+    it 'returns an error message and 400 error code if no parameters are provided', :vcr do
       get '/api/v1/forecast'
 
       expect(response).to have_http_status 400

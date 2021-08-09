@@ -33,5 +33,45 @@ RSpec.describe 'Breweries Request' do
       expect(breweries[:attributes][:breweries].first).to have_key :brewery_type
       expect(breweries[:attributes][:breweries].first[:brewery_type]).to be_a String
     end
+
+    it 'returns an error message and 400 error code if the location param is not valid', :vcr do
+      get '/api/v1/breweries', params: {location: ''}
+
+      expect(response).to have_http_status 400
+
+      response_body = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response_body).to eq({error: 'Bad request'})
+    end
+
+    it 'returns an error message and 400 error code if the quantity param is not a valid integer', :vcr do
+      get '/api/v1/breweries', params: {location: 'denver,co', quantity: -10}
+
+      expect(response).to have_http_status 400
+
+      response_body = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response_body).to eq({error: 'Bad request'})
+    end
+
+    it 'returns an error message and 400 error code if the quantity param is not an integer', :vcr do
+      get '/api/v1/breweries', params: {location: 'denver,co', quantity: 'string'}
+
+      expect(response).to have_http_status 400
+
+      response_body = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response_body).to eq({error: 'Bad request'})
+    end
+
+    it 'returns an error message and 400 error code if no parameters are provided', :vcr do
+      get '/api/v1/breweries'
+
+      expect(response).to have_http_status 400
+
+      response_body = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response_body).to eq({error: 'Bad request'})
+    end
   end
 end
