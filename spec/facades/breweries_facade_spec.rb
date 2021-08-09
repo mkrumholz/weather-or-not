@@ -11,7 +11,7 @@ RSpec.describe BreweriesFacade do
       VCR.turn_on!
       WebMock.disable_net_connect!
     end
-    
+
     it 'returns a brewery object with forecast, location, and breweries info' do
       breweries = BreweriesFacade.breweries('denver,co', 5)
 
@@ -22,7 +22,7 @@ RSpec.describe BreweriesFacade do
 
       expect(breweries.forecast).to be_a Hash
       expect(breweries.forecast[:summary]).to be_a String
-      expect(breweries.forecast[:temperature]).to match(/\d{1-3} F/)
+      expect(breweries.forecast[:temperature]).to match(/\d{1,3} F/)
 
       expect(breweries.breweries).to be_an Array
 
