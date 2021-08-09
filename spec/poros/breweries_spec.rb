@@ -8,7 +8,7 @@ RSpec.describe Breweries do
         summary: "Cloudy with a chance of meatballs",
         temperature: "83 F"
       }
-      brewary_list = [
+      brewery_list = [
         {:id=>8962, :name=>"Black Beak Brewing", :brewery_type=>"planning"},
         {:id=>8245, :name=>"Aero Craft Brewing", :brewery_type=>"planning"},
         {:id=>13467, :name=>"Pints Pub Brewery and Freehouse", :brewery_type=>"brewpub"},
@@ -18,14 +18,14 @@ RSpec.describe Breweries do
       local_details = {
         location: location,
         forecast: forecast,
-        breweries: brewary_list
+        breweries: brewery_list
       }
 
       breweries = Breweries.new(local_details)
       expect(breweries.id).to eq nil
       expect(breweries.destination).to eq location
       expect(breweries.forecast).to eq forecast
-      expect(breweries.breweries).to eq brewary_list
+      expect(breweries.breweries).to eq brewery_list
     end
   end
 end
