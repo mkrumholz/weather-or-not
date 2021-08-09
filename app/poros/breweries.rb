@@ -1,5 +1,6 @@
 class Breweries
   attr_reader :id, :destination, :forecast, :breweries
+
   def initialize(local_details)
     @id = nil
     @destination = local_details[:location]

@@ -24,7 +24,7 @@ class BreweriesFacade
     forecast = OpenWeatherService.get_forecast(coordinates[:lat], coordinates[:lon])
     {
       summary: forecast[:current][:weather].first[:description],
-      temperature: "#{forecast[:current][:temp].round.to_s} F"
+      temperature: "#{forecast[:current][:temp].round} F"
     }
   end
 end
