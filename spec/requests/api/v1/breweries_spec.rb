@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'breweries' do
+RSpec.describe 'Breweries Request' do
   describe 'GET /breweries' do
     it 'returns a list of (quantity) breweries along with forecast info', :vcr do
       get '/api/v1/breweries', params: {location: 'denver,co', quantity: 5}
