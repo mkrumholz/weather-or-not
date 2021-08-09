@@ -29,8 +29,14 @@ RSpec.describe DailyForecast do
       expect(actual).to be_a Hash
       expect(actual.length).to eq 7
       expect(actual[:date]).to be_a String
+      expect(actual[:date]).to match(/\d{4}-\d{2}-\d{2}/)
+
       expect(actual[:sunrise]).to be_a String
+      expect(actual[:sunrise]).to match(/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} [+-]\d{4}/)
+
       expect(actual[:sunset]).to be_a String
+      expect(actual[:sunset]).to match(/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} [+-]\d{4}/)
+
       expect(actual[:max_temp]).to be_a Float
       expect(actual[:min_temp]).to be_a Float
       expect(actual[:conditions]).to be_a String
