@@ -15,6 +15,7 @@ RSpec.describe BreweriesFacade do
       expect(breweries.forecast[:temperature]).to match(/\d{1,3} F/)
 
       expect(breweries.breweries).to be_an Array
+      expect(breweries.breweries.length).to eq 5
 
       first_brewery = breweries.breweries.first
       expect(first_brewery).to be_a Hash
@@ -25,6 +26,22 @@ RSpec.describe BreweriesFacade do
       expect(first_brewery).not_to have_key :phone
       expect(first_brewery).not_to have_key :website_url
       expect(first_brewery).not_to have_key :obdb_id
+    end
+
+    it 'defaults to returning 50 breweries in list if quantity > 50', :vcr do
+      breweries = BreweriesFacade.breweries('denver,co', 57)
+
+      expect(breweries).to be_a Breweries
+
+      expect(breweries.id).to eq nil
+      expect(breweries.destination).to eq 'denver,co'
+
+      expect(breweries.forecast).to be_a Hash
+      expect(breweries.forecast[:summary]).to be_a String
+      expect(breweries.forecast[:temperature]).to match(/\d{1,3} F/)
+
+      expect(breweries.breweries).to be_an Array
+      expect(breweries.breweries.length).to eq 50
     end
   end
 end
