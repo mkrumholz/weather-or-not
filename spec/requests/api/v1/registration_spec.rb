@@ -7,7 +7,7 @@ RSpec.describe 'Registration' do
         'Content-Type' => 'application/json', 
         'Accept' => 'application/json',
         email: "whatever@example.com",
-        password: "test_password"
+        password: "test_password",
         password_confirmation: "test_password"
       }
 
@@ -25,7 +25,7 @@ RSpec.describe 'Registration' do
       expect(attributes).to be_a Hash
       expect(attributes[:email]).to eq "whatever@example.com"
       expect(attributes[:api_key]).to be_a String
-      
+
       expect(attributes).not_to have_key :password
       expect(attributes).not_to have_key :password_confirmation
       expect(attributes).not_to have_key :password_digest
