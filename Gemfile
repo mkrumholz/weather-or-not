@@ -28,6 +28,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
 
+gem 'jsonapi-serializer'
 gem 'faraday'
 gem 'figaro'
 
@@ -37,7 +38,6 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'factory_bot_rails'
   gem 'faker'
-  gem 'jsonapi-serializer'
   gem 'pry'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
