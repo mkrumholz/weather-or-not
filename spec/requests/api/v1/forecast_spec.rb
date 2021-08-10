@@ -2,17 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'forecast' do
   describe 'GET /forecast' do
-    before do
-      VCR.turn_off!
-      WebMock.allow_net_connect!
-    end
-    
-    after do
-      VCR.turn_on!
-      WebMock.disable_net_connect!
-    end
-
-    it 'returns the weather for a provided city and state' do
+    it 'returns the weather for a provided city and state', :vcr do
       get '/api/v1/forecast', params: {location: 'denver,co'}
 
       expect(response).to have_http_status 200
@@ -59,7 +49,7 @@ RSpec.describe 'forecast' do
       expect(hourly_weather.first[:icon]).to be_a String
     end
 
-    it 'returns an error message and 404 error code if the location param is not valid' do
+    it 'returns an error message and 400 error code if the location param is not valid', :vcr do
       get '/api/v1/forecast', params: {location: ''}
 
       expect(response).to have_http_status 400
@@ -69,7 +59,7 @@ RSpec.describe 'forecast' do
       expect(response_body).to eq({error: 'Bad request'})
     end
 
-    it 'returns an error message and 422 error code if no parameters are provided' do
+    it 'returns an error message and 400 error code if no parameters are provided', :vcr do
       get '/api/v1/forecast'
 
       expect(response).to have_http_status 400
