@@ -4,4 +4,10 @@ class User < ApplicationRecord
 
   has_one :api_key
   has_secure_password
+
+  # attr_reader :api_token
+
+  # def api_token
+  #   api_key.token
+  # end
 end

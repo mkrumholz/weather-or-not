@@ -19,7 +19,7 @@ RSpec.describe 'Registration' do
 
       expect(response_body[:data]).to be_a Hash
       expect(response_body[:data][:type]).to eq "users"
-      expect(response_body[:data][:id]).to be_an Integer
+      expect(response_body[:data][:id]).to be_a String
 
       attributes = response_body[:data][:attributes]
       expect(attributes).to be_a Hash
