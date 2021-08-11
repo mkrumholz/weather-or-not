@@ -1,14 +1,13 @@
 class Api::V1::UsersController < ApplicationController
   def create
     user_params[:email] = user_params[:email].downcase
-    @new_user = User.new(user_params)
-    if @new_user.save
-      # require 'pry'; binding.pry
+    params[:password_confirmation] = '' if params[:password_confirmation].nil?
+    begin
+      @new_user = User.create!(user_params)
       ApiKey.create(user_id: @new_user.id, token: ApiKey.generate_new)
-      # render json response with the user and their api key (serialize user model but only with emial and key)
       json_response(UserSerializer.new(@new_user), :created)
-    # else 
-      # render an error message 
+    rescue ActiveRecord::RecordInvalid => e
+      json_response({ errors: e.message }, :unprocessable_entity )
     end
   end
 
