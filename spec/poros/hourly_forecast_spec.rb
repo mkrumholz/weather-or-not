@@ -25,6 +25,8 @@ RSpec.describe HourlyForecast do
       expect(actual).to be_a Hash
       expect(actual.length).to eq 4
       expect(actual[:time]).to be_a String
+      expect(actual[:time]).to match(/\d{2}:\d{2}:\d{2}/)
+
       expect(actual[:temperature]).to be_a Float
       expect(actual[:conditions]).to be_a String
       expect(actual[:icon]).to be_a String

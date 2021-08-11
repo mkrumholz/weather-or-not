@@ -26,8 +26,14 @@ RSpec.describe CurrentForecast do
       expect(actual).to be_a Hash
       expect(actual.length).to eq 10
       expect(actual[:datetime]).to be_a String
+      expect(actual[:datetime]).to match(/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} [+-]\d{4}/)
+
       expect(actual[:sunrise]).to be_a String
+      expect(actual[:sunrise]).to match(/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} [+-]\d{4}/)
+
       expect(actual[:sunset]).to be_a String
+      expect(actual[:sunset]).to match(/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} [+-]\d{4}/)
+
       expect(actual[:temperature]).to be_a Float
       expect(actual[:feels_like]).to be_a Float
       expect(actual[:humidity]).to be_a Numeric

@@ -9,6 +9,6 @@ class Api::V1::BreweriesController < ApplicationController
   private
 
   def params_valid?(params)
-    params[:location].present? && params[:quantity].present? && params[:quantity].to_i > 0
+    params[:location].present? && params[:quantity].present? && params[:quantity].to_i.positive?
   end
 end

@@ -14,9 +14,9 @@ class CurrentForecast
 
   def details
     {
-      datetime: Time.at(@datetime).in_time_zone(@timezone).to_s,
-      sunrise: Time.at(@sunrise).in_time_zone(@timezone).to_s,
-      sunset: Time.at(@sunset).in_time_zone(@timezone).to_s,
+      datetime: format_time(@datetime),
+      sunrise: format_time(@sunrise),
+      sunset: format_time(@sunset),
       temperature: @temperature,
       feels_like: @feels_like,
       humidity: @humidity,
@@ -25,5 +25,9 @@ class CurrentForecast
       conditions: @weather[:description],
       icon: @weather[:icon]
     }
+  end
+
+  def format_time(timestamp)
+    Time.at(timestamp).in_time_zone(@timezone).to_s
   end
 end

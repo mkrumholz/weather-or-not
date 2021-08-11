@@ -3,7 +3,10 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       get '/forecast', to: 'forecasts#show'
+
       get '/breweries', to: 'breweries#index'
+
+      resources :users, only: :create
     end
   end
 end
